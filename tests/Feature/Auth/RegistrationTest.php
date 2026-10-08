@@ -9,6 +9,15 @@ class RegistrationTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        if (! \Illuminate\Support\Facades\Route::has('register')) {
+            $this->markTestSkipped('Public registration is disabled (config/fortify.php).');
+        }
+    }
+
     public function test_registration_screen_can_be_rendered(): void
     {
         $response = $this->get(route('register'));

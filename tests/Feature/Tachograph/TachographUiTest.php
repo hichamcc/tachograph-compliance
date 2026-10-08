@@ -188,4 +188,12 @@ class TachographUiTest extends TestCase
             ->assertSee('q=Driver&amp;sort=violations__asc', false)
             ->assertSee('↓');
     }
+
+    public function test_public_sign_up_is_disabled(): void
+    {
+        $this->get('/register')->assertNotFound();
+        $this->post('/register', ['name' => 'X', 'email' => 'x@example.com', 'password' => 'secret-password-1', 'password_confirmation' => 'secret-password-1'])->assertNotFound();
+        $this->get(route('login'))->assertOk()->assertDontSee('Sign up');
+        $this->assertDatabaseMissing('users', ['email' => 'x@example.com']);
+    }
 }

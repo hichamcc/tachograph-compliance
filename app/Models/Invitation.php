@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 
 class Invitation extends Model
@@ -52,7 +53,10 @@ class Invitation extends Model
 
     public function url()
     {
-        return route('register', ['code' => $this->code]);
+        // With public sign-up disabled, invitees log in to an existing account to accept.
+        return Route::has('register')
+            ? route('register', ['code' => $this->code])
+            : route('teams.invitations.show', ['invitation' => $this->code]);
     }
 
     public function accept(User $user)

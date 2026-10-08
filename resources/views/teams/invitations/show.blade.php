@@ -4,8 +4,10 @@
     <x-section>
         <x-card class="p-1">
             <x-navlist class="divide-y">
-                <x-navlist.item href="{{ route('register', ['code' => $invitation->code]) }}" after="phosphor-caret-right">{{ __('Sign up for a new account') }}</x-navlist.item>
-                <x-separator class="my-1" />
+                @if (Route::has('register'))
+                    <x-navlist.item href="{{ route('register', ['code' => $invitation->code]) }}" after="phosphor-caret-right">{{ __('Sign up for a new account') }}</x-navlist.item>
+                    <x-separator class="my-1" />
+                @endif
                 <x-navlist.item href="{{ route('teams.memberships.create', $invitation) }}" after="phosphor-caret-right">{{ __('Log in to an existing account') }}</x-navlist.item>
             </x-navlist>
         </x-card>

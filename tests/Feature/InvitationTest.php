@@ -89,6 +89,10 @@ class InvitationTest extends TestCase
 
     public function test_user_can_register_with_invitation_code(): void
     {
+        if (! \Illuminate\Support\Facades\Route::has('register')) {
+            $this->markTestSkipped('Public registration is disabled (config/fortify.php).');
+        }
+
         $invitation = Invitation::factory()->create([
             'role' => UserRole::ADMIN,
         ]);

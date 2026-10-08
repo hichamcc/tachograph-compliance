@@ -99,7 +99,11 @@ This is a supported mode: there is no queue and no cron, and everything runs dur
 - [ ] `https://your-domain/.env` and `https://your-domain/../storage` return 404/403.
 - [ ] Only HTTPS is used (enable HTTPS redirect in the panel).
 - [ ] `php artisan tacho:discover --days=1` succeeds.
-- [ ] Register the first user, verify the e-mail, enable 2FA, and make the user an admin if needed (`users.role = 'admin'`).
+- [ ] Create users (public sign-up is disabled), then have each user enable 2FA:
+  ```bash
+  php artisan tinker --execute="App\Models\User::create(['name' => 'Name', 'email' => 'name@example.com', 'password' => 'a-long-password', 'email_verified_at' => now(), 'role' => 'member']);"
+  ```
+  Use `'role' => 'admin'` for administrators. To allow sign-up again, uncomment `Features::registration()` in `config/fortify.php`.
 - [ ] After one minute, `php artisan queue:monitor database:default` or the `jobs` table shows the queue draining.
 
 ## Updating

@@ -14,7 +14,8 @@ return [
     ],
 
     'features' => [
-        Features::registration(),
+        // Public sign-up disabled: users are created by an admin (see docs/DEPLOYMENT.md).
+        // Features::registration(),
         Features::resetPasswords(),
         Features::emailVerification(),
         Features::twoFactorAuthentication([
