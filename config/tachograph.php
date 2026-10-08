@@ -24,6 +24,9 @@ return [
     // Allow uploading local JSON fixtures from the web UI (disable in production).
     'allow_import' => (bool) env('TACHO_ALLOW_IMPORT', false),
 
+    // Raw Mapon responses are deleted after this many days.
+    'raw_retention_days' => (int) env('TACHO_RAW_RETENTION_DAYS', 90),
+
     // Paths on the private "local" disk (storage/app/private).
     'raw_payload_path' => 'mapon/raw',
     'report_path' => 'reports',

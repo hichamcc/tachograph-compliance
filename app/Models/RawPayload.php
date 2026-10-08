@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 
 class RawPayload extends Model
@@ -35,6 +36,30 @@ class RawPayload extends Model
             'payload_sha256' => $sha,
             'fetched_at' => now(),
         ]);
+    }
+
+    /** Delete payload files and rows older than the retention period; returns the count. */
+    public static function prune(int $days): int
+    {
+        $deleted = 0;
+
+        self::where('fetched_at', '<', now()->subDays(max(1, $days)))->chunkById(200, function ($payloads) use (&$deleted) {
+            foreach ($payloads as $payload) {
+                Storage::disk('local')->delete($payload->payload_path);
+                $payload->delete();
+                $deleted++;
+            }
+        });
+
+        return $deleted;
+    }
+
+    /** Prune at most once a day (used when no scheduler runs tacho:prune-raw). */
+    public static function pruneDaily(): void
+    {
+        if (Cache::add('tachograph.raw_pruned', true, now()->addDay())) {
+            self::prune((int) config('tachograph.raw_retention_days', 90));
+        }
     }
 
     public function contents(): string

@@ -5,10 +5,14 @@ namespace App\Http\Controllers\Tachograph;
 use App\Http\Controllers\Controller;
 use App\Models\Driver;
 use App\Models\ProcessingRun;
+use App\Models\RawPayload;
+use App\RunType;
+use App\Services\Mapon\MaponException;
 use App\Services\Tachograph\EvaluationService;
 use App\Services\Tachograph\FetchService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Bus;
+use Throwable;
 
 class RunController extends Controller
 {
@@ -28,7 +32,32 @@ class RunController extends Controller
             return back()->withInput()->withErrors(['end' => __('The period may be at most :days days.', ['days' => self::MAX_DAYS])]);
         }
 
-        $run = $fetch->start($driver, $period, $request->user());
+        // Without a queue worker (QUEUE_CONNECTION=sync) the download and check run inside
+        // this request: give it time, and turn a Mapon failure into a failed run, not a 500.
+        if (config('queue.default') === 'sync') {
+            @set_time_limit(180);
+        }
+
+        try {
+            $run = $fetch->start($driver, $period, $request->user());
+        } catch (Throwable $e) {
+            report($e);
+
+            $run = ProcessingRun::where('driver_id', $driver->id)
+                ->where('type', RunType::EVALUATE->value)
+                ->orderByDesc('id')
+                ->first();
+
+            if ($run && ! $run->status->isFinished()) {
+                $run->markFailed($e instanceof MaponException ? $e->getMessage() : __('The check failed. Please try again.'));
+            }
+
+            if (! $run) {
+                return back()->with('error', __('The check failed. Please try again.'));
+            }
+        }
+
+        RawPayload::pruneDaily();
 
         return redirect()->route('tachograph.runs.show', $run);
     }

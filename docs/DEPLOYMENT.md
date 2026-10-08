@@ -83,7 +83,15 @@ This drives:
 
 Use the PHP CLI binary matching the web PHP version (e.g. `/usr/local/bin/php83`) if `php` points to another version.
 
-If cron is not available, set `QUEUE_CONNECTION=sync` and keep report periods short (one driver, one week), so a request fits in `max_execution_time`.
+### Without cron (`QUEUE_CONNECTION=sync`)
+
+This is a supported mode: there is no queue and no cron, and everything runs during the request when someone clicks **Run check** or **Sync from Mapon**.
+
+- **Nothing runs automatically.** There is no nightly sync or check; drivers are synced and checked from the UI (or `php artisan tacho:sync-drivers` / `tacho:fetch` over SSH).
+- **A check waits for the download to finish.** A driver's first check downloads ~5 weeks of history (2 Mapon calls); later checks re-download only the last few days. The request asks PHP for up to 180 s; if the host caps `max_execution_time` lower (e.g. 30 s), keep periods short and set `MAPON_TIMEOUT=20`.
+- **Mapon failures** (timeouts, rate limits) show as a *Failed* run with the reason; click **Run check** again.
+- **Old raw Mapon responses** are deleted automatically (at most once a day, after a check) once they are older than `TACHO_RAW_RETENTION_DAYS` (default 90).
+- The dashboard hides the queue and cron indicators.
 
 ## 6. Checks
 

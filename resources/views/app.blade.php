@@ -109,12 +109,14 @@
                         <dt class="text-gray-500 dark:text-white/60">{{ __('Failed runs (24h)') }}</dt>
                         <dd class="font-medium tabular-nums {{ $system['failed_24h'] ? 'text-red-600 dark:text-red-400' : '' }}">{{ $system['failed_24h'] }}</dd>
                     </div>
-                    <div>
-                        <dt class="text-gray-500 dark:text-white/60">{{ __('Jobs waiting in queue') }}</dt>
-                        <dd class="font-medium tabular-nums">{{ $system['queued'] ?? '–' }}</dd>
-                    </div>
+                    @if ($system['uses_queue'])
+                        <div>
+                            <dt class="text-gray-500 dark:text-white/60">{{ __('Jobs waiting in queue') }}</dt>
+                            <dd class="font-medium tabular-nums">{{ $system['queued'] ?? '–' }}</dd>
+                        </div>
+                    @endif
                 </dl>
-                @if ($system['last_fetch'] && $system['last_fetch']->lt(now()->subHours(26)))
+                @if ($system['uses_queue'] && $system['last_fetch'] && $system['last_fetch']->lt(now()->subHours(26)))
                     <x-text size="sm" class="mt-3 text-amber-700 dark:text-amber-300">{{ __('No download in over a day. Check the cron job.') }}</x-text>
                 @endif
             </x-card>

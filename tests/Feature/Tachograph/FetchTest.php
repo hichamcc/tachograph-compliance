@@ -146,4 +146,35 @@ class FetchTest extends TestCase
         Storage::disk('local')->assertMissing($old->payload_path);
         Storage::disk('local')->assertExists($new->payload_path);
     }
+
+    public function test_temporary_mapon_outage_in_sync_mode_shows_a_failed_run_not_an_error_page(): void
+    {
+        Http::fake(['*' => Http::response('Bad gateway', 502)]);
+        $this->be(\App\Models\User::factory()->create());
+
+        $response = $this->post(route('tachograph.runs.store', $this->driver), ['start' => '2025-09-22', 'end' => '2025-09-28']);
+
+        $run = ProcessingRun::where('type', RunType::EVALUATE)->sole();
+        $response->assertRedirect(route('tachograph.runs.show', $run));
+        $this->assertSame(RunStatus::FAILED, $run->fresh()->status);
+        $this->assertStringContainsString('502', $run->fresh()->error_message);
+        $this->assertStringNotContainsString('test-key', $run->fresh()->error_message);
+
+        $this->get(route('tachograph.runs.show', $run))->assertOk()->assertSee('502');
+    }
+
+    public function test_raw_payloads_are_pruned_at_most_once_a_day(): void
+    {
+        $old = RawPayload::store('driver/daily_activities', '[]');
+        $old->update(['fetched_at' => now()->subDays(100)]);
+
+        RawPayload::pruneDaily();
+        $this->assertModelMissing($old);
+
+        $older = RawPayload::store('driver/daily_activities', '[2]');
+        $older->update(['fetched_at' => now()->subDays(100)]);
+
+        RawPayload::pruneDaily(); // already pruned today
+        $this->assertModelExists($older);
+    }
 }

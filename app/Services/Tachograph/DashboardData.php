@@ -110,14 +110,16 @@ class DashboardData
             ->get();
     }
 
-    /** @return array{last_sync: ?Carbon, last_fetch: ?Carbon, failed_24h: int, queued: ?int} */
+    /** @return array{last_sync: ?Carbon, last_fetch: ?Carbon, failed_24h: int, queued: ?int, uses_queue: bool} */
     public function system(): array
     {
         $lastSync = Cache::get(DriverSync::LAST_SYNC_KEY);
         $lastFetch = ProcessingRun::where('type', RunType::FETCH->value)->max('created_at');
 
+        $usesQueue = config('queue.default') !== 'sync';
+
         try {
-            $queued = Queue::size();
+            $queued = $usesQueue ? Queue::size() : null;
         } catch (Throwable) {
             $queued = null;
         }
@@ -127,6 +129,7 @@ class DashboardData
             'last_fetch' => $lastFetch ? Carbon::parse($lastFetch, 'UTC') : null,
             'failed_24h' => ProcessingRun::where('status', RunStatus::FAILED->value)->where('created_at', '>=', now()->subDay())->count(),
             'queued' => $queued,
+            'uses_queue' => $usesQueue,
         ];
     }
 }
