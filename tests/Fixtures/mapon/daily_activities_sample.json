@@ -1,0 +1,2072 @@
+[
+    {
+        "day": "2025-09-05T22:00:00Z",
+        "summary": {
+            "shift": 0,
+            "driving": 0,
+            "rest": 86399
+        },
+        "activities": [
+            {
+                "start": 1757109600,
+                "end": 1757195999,
+                "duration": 86399,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900001
+            }
+        ]
+    },
+    {
+        "day": "2025-09-06T22:00:00Z",
+        "summary": {
+            "shift": 0,
+            "driving": 0,
+            "rest": 86399
+        },
+        "activities": [
+            {
+                "start": 1757196000,
+                "end": 1757282399,
+                "duration": 86399,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900001
+            }
+        ]
+    },
+    {
+        "day": "2025-09-07T22:00:00Z",
+        "summary": {
+            "shift": 0,
+            "driving": 0,
+            "rest": 86399
+        },
+        "activities": [
+            {
+                "start": 1757282400,
+                "end": 1757368799,
+                "duration": 86399,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900001
+            }
+        ]
+    },
+    {
+        "day": "2025-09-08T22:00:00Z",
+        "summary": {
+            "shift": 0,
+            "driving": 0,
+            "rest": 86399
+        },
+        "activities": [
+            {
+                "start": 1757368800,
+                "end": 1757455199,
+                "duration": 86399,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900001
+            }
+        ]
+    },
+    {
+        "day": "2025-09-09T22:00:00Z",
+        "summary": {
+            "shift": 0,
+            "driving": 0,
+            "rest": 86399
+        },
+        "activities": [
+            {
+                "start": 1757455200,
+                "end": 1757541599,
+                "duration": 86399,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900001
+            }
+        ]
+    },
+    {
+        "day": "2025-09-10T22:00:00Z",
+        "summary": {
+            "shift": 0,
+            "driving": 0,
+            "rest": 86399
+        },
+        "activities": [
+            {
+                "start": 1757541600,
+                "end": 1757627999,
+                "duration": 86399,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900001
+            }
+        ]
+    },
+    {
+        "day": "2025-09-11T22:00:00Z",
+        "summary": {
+            "shift": 0,
+            "driving": 0,
+            "rest": 86399
+        },
+        "activities": [
+            {
+                "start": 1757628000,
+                "end": 1757714399,
+                "duration": 86399,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900001
+            }
+        ]
+    },
+    {
+        "day": "2025-09-12T22:00:00Z",
+        "summary": {
+            "shift": 0,
+            "driving": 0,
+            "rest": 86399
+        },
+        "activities": [
+            {
+                "start": 1757714400,
+                "end": 1757800799,
+                "duration": 86399,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900001
+            }
+        ]
+    },
+    {
+        "day": "2025-09-13T22:00:00Z",
+        "summary": {
+            "shift": 0,
+            "driving": 0,
+            "rest": 86399
+        },
+        "activities": [
+            {
+                "start": 1757800800,
+                "end": 1757887199,
+                "duration": 86399,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900001
+            }
+        ]
+    },
+    {
+        "day": "2025-09-14T22:00:00Z",
+        "summary": {
+            "shift": 0,
+            "driving": 0,
+            "rest": 86399
+        },
+        "activities": [
+            {
+                "start": 1757887200,
+                "end": 1757973599,
+                "duration": 86399,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900001
+            }
+        ]
+    },
+    {
+        "day": "2025-09-15T22:00:00Z",
+        "summary": {
+            "shift": 0,
+            "driving": 0,
+            "rest": 86399
+        },
+        "activities": [
+            {
+                "start": 1757973600,
+                "end": 1758059999,
+                "duration": 86399,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900001
+            }
+        ]
+    },
+    {
+        "day": "2025-09-16T22:00:00Z",
+        "summary": {
+            "shift": 0,
+            "driving": 0,
+            "rest": 86399
+        },
+        "activities": [
+            {
+                "start": 1758060000,
+                "end": 1758146399,
+                "duration": 86399,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900001
+            }
+        ]
+    },
+    {
+        "day": "2025-09-17T22:00:00Z",
+        "summary": {
+            "shift": 0,
+            "driving": 0,
+            "rest": 86399
+        },
+        "activities": [
+            {
+                "start": 1758146400,
+                "end": 1758232799,
+                "duration": 86399,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900001
+            }
+        ]
+    },
+    {
+        "day": "2025-09-18T22:00:00Z",
+        "summary": {
+            "shift": 0,
+            "driving": 0,
+            "rest": 86399
+        },
+        "activities": [
+            {
+                "start": 1758232800,
+                "end": 1758319199,
+                "duration": 86399,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900001
+            }
+        ]
+    },
+    {
+        "day": "2025-09-19T22:00:00Z",
+        "summary": {
+            "shift": 0,
+            "driving": 0,
+            "rest": 86399
+        },
+        "activities": [
+            {
+                "start": 1758319200,
+                "end": 1758405599,
+                "duration": 86399,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900001
+            }
+        ]
+    },
+    {
+        "day": "2025-09-20T22:00:00Z",
+        "summary": {
+            "shift": 0,
+            "driving": 0,
+            "rest": 86399
+        },
+        "activities": [
+            {
+                "start": 1758405600,
+                "end": 1758491999,
+                "duration": 86399,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900001
+            }
+        ]
+    },
+    {
+        "day": "2025-09-21T22:00:00Z",
+        "summary": {
+            "shift": 0,
+            "driving": 0,
+            "rest": 86399
+        },
+        "activities": [
+            {
+                "start": 1758492000,
+                "end": 1758578399,
+                "duration": 86399,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900001
+            }
+        ]
+    },
+    {
+        "day": "2025-09-22T22:00:00Z",
+        "summary": {
+            "shift": 0,
+            "driving": 0,
+            "rest": 86399
+        },
+        "activities": [
+            {
+                "start": 1758578400,
+                "end": 1758664799,
+                "duration": 86399,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900001
+            }
+        ]
+    },
+    {
+        "day": "2025-09-23T22:00:00Z",
+        "summary": {
+            "shift": 0,
+            "driving": 0,
+            "rest": 86399
+        },
+        "activities": [
+            {
+                "start": 1758664800,
+                "end": 1758751199,
+                "duration": 86399,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900001
+            }
+        ]
+    },
+    {
+        "day": "2025-09-24T22:00:00Z",
+        "summary": {
+            "shift": 0,
+            "driving": 0,
+            "rest": 86399
+        },
+        "activities": [
+            {
+                "start": 1758751200,
+                "end": 1758837599,
+                "duration": 86399,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900001
+            }
+        ]
+    },
+    {
+        "day": "2025-09-25T22:00:00Z",
+        "summary": {
+            "shift": 0,
+            "driving": 0,
+            "rest": 86399
+        },
+        "activities": [
+            {
+                "start": 1758837600,
+                "end": 1758923999,
+                "duration": 86399,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900001
+            }
+        ]
+    },
+    {
+        "day": "2025-09-26T22:00:00Z",
+        "summary": {
+            "shift": 0,
+            "driving": 0,
+            "rest": 86399
+        },
+        "activities": [
+            {
+                "start": 1758924000,
+                "end": 1759010399,
+                "duration": 86399,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900001
+            }
+        ]
+    },
+    {
+        "day": "2025-09-27T22:00:00Z",
+        "summary": {
+            "shift": 8580,
+            "driving": 7260,
+            "rest": 77819
+        },
+        "activities": [
+            {
+                "start": 1759010400,
+                "end": 1759059960,
+                "duration": 49560,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900001
+            },
+            {
+                "start": 1759059960,
+                "end": 1759060140,
+                "duration": 180,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759060140,
+                "end": 1759060200,
+                "duration": 60,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759060200,
+                "end": 1759060440,
+                "duration": 240,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759060440,
+                "end": 1759066560,
+                "duration": 6120,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759066560,
+                "end": 1759066740,
+                "duration": 180,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759066740,
+                "end": 1759066800,
+                "duration": 60,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759066800,
+                "end": 1759067340,
+                "duration": 540,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759067340,
+                "end": 1759067700,
+                "duration": 360,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759067700,
+                "end": 1759070100,
+                "duration": 2400,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759070100,
+                "end": 1759070400,
+                "duration": 300,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759070400,
+                "end": 1759076700,
+                "duration": 6300,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759076700,
+                "end": 1759076940,
+                "duration": 240,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759076940,
+                "end": 1759094040,
+                "duration": 17100,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759094040,
+                "end": 1759094160,
+                "duration": 120,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759094160,
+                "end": 1759094340,
+                "duration": 180,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759094340,
+                "end": 1759096799,
+                "duration": 2459,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            }
+        ]
+    },
+    {
+        "day": "2025-09-28T22:00:00Z",
+        "summary": {
+            "shift": 34980,
+            "driving": 28020,
+            "rest": 51419
+        },
+        "activities": [
+            {
+                "start": 1759096800,
+                "end": 1759118160,
+                "duration": 21360,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759118160,
+                "end": 1759118400,
+                "duration": 240,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759118400,
+                "end": 1759124100,
+                "duration": 5700,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759124100,
+                "end": 1759125180,
+                "duration": 1080,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759125180,
+                "end": 1759125600,
+                "duration": 420,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759125600,
+                "end": 1759125840,
+                "duration": 240,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759125840,
+                "end": 1759129320,
+                "duration": 3480,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759129320,
+                "end": 1759129620,
+                "duration": 300,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759129620,
+                "end": 1759131660,
+                "duration": 2040,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759131660,
+                "end": 1759131780,
+                "duration": 120,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759131780,
+                "end": 1759131840,
+                "duration": 60,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759131840,
+                "end": 1759133400,
+                "duration": 1560,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759133400,
+                "end": 1759133460,
+                "duration": 60,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759133460,
+                "end": 1759133820,
+                "duration": 360,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759133820,
+                "end": 1759136340,
+                "duration": 2520,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759136340,
+                "end": 1759136520,
+                "duration": 180,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759136520,
+                "end": 1759140600,
+                "duration": 4080,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759140600,
+                "end": 1759140780,
+                "duration": 180,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759140780,
+                "end": 1759144440,
+                "duration": 3660,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759144440,
+                "end": 1759145220,
+                "duration": 780,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759145220,
+                "end": 1759146180,
+                "duration": 960,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759146180,
+                "end": 1759146720,
+                "duration": 540,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759146720,
+                "end": 1759147500,
+                "duration": 780,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759147500,
+                "end": 1759148340,
+                "duration": 840,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759148340,
+                "end": 1759149180,
+                "duration": 840,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759149180,
+                "end": 1759149300,
+                "duration": 120,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759149300,
+                "end": 1759149360,
+                "duration": 60,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759149360,
+                "end": 1759149780,
+                "duration": 420,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759149780,
+                "end": 1759150620,
+                "duration": 840,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759150620,
+                "end": 1759151700,
+                "duration": 1080,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759151700,
+                "end": 1759151760,
+                "duration": 60,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759151760,
+                "end": 1759152120,
+                "duration": 360,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759152120,
+                "end": 1759153980,
+                "duration": 1860,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759153980,
+                "end": 1759154340,
+                "duration": 360,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759154340,
+                "end": 1759154400,
+                "duration": 60,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759154400,
+                "end": 1759154700,
+                "duration": 300,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759154700,
+                "end": 1759154820,
+                "duration": 120,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759154820,
+                "end": 1759155000,
+                "duration": 180,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759155000,
+                "end": 1759155300,
+                "duration": 300,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759155300,
+                "end": 1759159380,
+                "duration": 4080,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759159380,
+                "end": 1759162320,
+                "duration": 2940,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759162320,
+                "end": 1759162860,
+                "duration": 540,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759162860,
+                "end": 1759163160,
+                "duration": 300,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759163160,
+                "end": 1759164000,
+                "duration": 840,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759164000,
+                "end": 1759167780,
+                "duration": 3780,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759167780,
+                "end": 1759169820,
+                "duration": 2040,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759169820,
+                "end": 1759170060,
+                "duration": 240,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759170060,
+                "end": 1759183199,
+                "duration": 13139,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            }
+        ]
+    },
+    {
+        "day": "2025-09-29T22:00:00Z",
+        "summary": {
+            "shift": 30000,
+            "driving": 29580,
+            "rest": 56399
+        },
+        "activities": [
+            {
+                "start": 1759183200,
+                "end": 1759212120,
+                "duration": 28920,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759212120,
+                "end": 1759212480,
+                "duration": 360,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759212480,
+                "end": 1759213800,
+                "duration": 1320,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759213800,
+                "end": 1759213860,
+                "duration": 60,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759213860,
+                "end": 1759214160,
+                "duration": 300,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759214160,
+                "end": 1759214280,
+                "duration": 120,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759214280,
+                "end": 1759228020,
+                "duration": 13740,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759228020,
+                "end": 1759228260,
+                "duration": 240,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759228260,
+                "end": 1759230180,
+                "duration": 1920,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759230180,
+                "end": 1759245600,
+                "duration": 15420,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759245600,
+                "end": 1759245660,
+                "duration": 60,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759245660,
+                "end": 1759269599,
+                "duration": 23939,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            }
+        ]
+    },
+    {
+        "day": "2025-09-30T22:00:00Z",
+        "summary": {
+            "shift": 33960,
+            "driving": 24360,
+            "rest": 52439
+        },
+        "activities": [
+            {
+                "start": 1759269600,
+                "end": 1759292580,
+                "duration": 22980,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759292580,
+                "end": 1759292760,
+                "duration": 180,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759292760,
+                "end": 1759293180,
+                "duration": 420,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759293180,
+                "end": 1759295280,
+                "duration": 2100,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759295280,
+                "end": 1759295340,
+                "duration": 60,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759295340,
+                "end": 1759295460,
+                "duration": 120,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759295460,
+                "end": 1759297020,
+                "duration": 1560,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759297020,
+                "end": 1759297500,
+                "duration": 480,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759297500,
+                "end": 1759303620,
+                "duration": 6120,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759303620,
+                "end": 1759303860,
+                "duration": 240,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759303860,
+                "end": 1759304220,
+                "duration": 360,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759304220,
+                "end": 1759310100,
+                "duration": 5880,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759310100,
+                "end": 1759310220,
+                "duration": 120,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759310220,
+                "end": 1759310340,
+                "duration": 120,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759310340,
+                "end": 1759310520,
+                "duration": 180,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759310520,
+                "end": 1759311420,
+                "duration": 900,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759311420,
+                "end": 1759311540,
+                "duration": 120,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759311540,
+                "end": 1759318920,
+                "duration": 7380,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759318920,
+                "end": 1759319100,
+                "duration": 180,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759319100,
+                "end": 1759319580,
+                "duration": 480,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759319580,
+                "end": 1759321140,
+                "duration": 1560,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759321140,
+                "end": 1759321260,
+                "duration": 120,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759321260,
+                "end": 1759321620,
+                "duration": 360,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759321620,
+                "end": 1759321920,
+                "duration": 300,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759321920,
+                "end": 1759322040,
+                "duration": 120,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759322040,
+                "end": 1759322220,
+                "duration": 180,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759322220,
+                "end": 1759322280,
+                "duration": 60,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759322280,
+                "end": 1759327320,
+                "duration": 5040,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759327320,
+                "end": 1759330020,
+                "duration": 2700,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759330020,
+                "end": 1759330320,
+                "duration": 300,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759330320,
+                "end": 1759330380,
+                "duration": 60,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759330380,
+                "end": 1759333380,
+                "duration": 3000,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759333380,
+                "end": 1759345680,
+                "duration": 12300,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759345680,
+                "end": 1759355999,
+                "duration": 10319,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            }
+        ]
+    },
+    {
+        "day": "2025-10-01T22:00:00Z",
+        "summary": {
+            "shift": 38580,
+            "driving": 35220,
+            "rest": 47819
+        },
+        "activities": [
+            {
+                "start": 1759356000,
+                "end": 1759378260,
+                "duration": 22260,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759378260,
+                "end": 1759378500,
+                "duration": 240,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759378500,
+                "end": 1759382340,
+                "duration": 3840,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759382340,
+                "end": 1759382760,
+                "duration": 420,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759382760,
+                "end": 1759382940,
+                "duration": 180,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759382940,
+                "end": 1759383060,
+                "duration": 120,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759383060,
+                "end": 1759383120,
+                "duration": 60,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759383120,
+                "end": 1759384380,
+                "duration": 1260,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759384380,
+                "end": 1759384620,
+                "duration": 240,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759384620,
+                "end": 1759384680,
+                "duration": 60,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759384680,
+                "end": 1759384800,
+                "duration": 120,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759384800,
+                "end": 1759389780,
+                "duration": 4980,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759389780,
+                "end": 1759389960,
+                "duration": 180,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759389960,
+                "end": 1759392120,
+                "duration": 2160,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759392120,
+                "end": 1759392420,
+                "duration": 300,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759392420,
+                "end": 1759392540,
+                "duration": 120,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759392540,
+                "end": 1759392960,
+                "duration": 420,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759392960,
+                "end": 1759393500,
+                "duration": 540,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759393500,
+                "end": 1759394220,
+                "duration": 720,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759394220,
+                "end": 1759396200,
+                "duration": 1980,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759396200,
+                "end": 1759398000,
+                "duration": 1800,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759398000,
+                "end": 1759405440,
+                "duration": 7440,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759405440,
+                "end": 1759405920,
+                "duration": 480,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759405920,
+                "end": 1759405980,
+                "duration": 60,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759405980,
+                "end": 1759410600,
+                "duration": 4620,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759410600,
+                "end": 1759411020,
+                "duration": 420,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759411020,
+                "end": 1759411080,
+                "duration": 60,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759411080,
+                "end": 1759411320,
+                "duration": 240,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759411320,
+                "end": 1759411860,
+                "duration": 540,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759411860,
+                "end": 1759412100,
+                "duration": 240,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759412100,
+                "end": 1759425780,
+                "duration": 13680,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759425780,
+                "end": 1759425960,
+                "duration": 180,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759425960,
+                "end": 1759426020,
+                "duration": 60,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759426020,
+                "end": 1759426080,
+                "duration": 60,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759426080,
+                "end": 1759442399,
+                "duration": 16319,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            }
+        ]
+    },
+    {
+        "day": "2025-10-02T22:00:00Z",
+        "summary": {
+            "shift": 32280,
+            "driving": 26280,
+            "rest": 54119
+        },
+        "activities": [
+            {
+                "start": 1759442400,
+                "end": 1759458660,
+                "duration": 16260,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759458660,
+                "end": 1759458720,
+                "duration": 60,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759458720,
+                "end": 1759467480,
+                "duration": 8760,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759467480,
+                "end": 1759469100,
+                "duration": 1620,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759469100,
+                "end": 1759469220,
+                "duration": 120,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759469220,
+                "end": 1759469340,
+                "duration": 120,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759469340,
+                "end": 1759469520,
+                "duration": 180,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759469520,
+                "end": 1759470600,
+                "duration": 1080,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759470600,
+                "end": 1759470660,
+                "duration": 60,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759470660,
+                "end": 1759472400,
+                "duration": 1740,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759472400,
+                "end": 1759472640,
+                "duration": 240,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759472640,
+                "end": 1759472700,
+                "duration": 60,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759472700,
+                "end": 1759473240,
+                "duration": 540,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759473240,
+                "end": 1759473480,
+                "duration": 240,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759473480,
+                "end": 1759474380,
+                "duration": 900,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759474380,
+                "end": 1759474680,
+                "duration": 300,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759474680,
+                "end": 1759475700,
+                "duration": 1020,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759475700,
+                "end": 1759475880,
+                "duration": 180,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759475880,
+                "end": 1759476360,
+                "duration": 480,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759476360,
+                "end": 1759478280,
+                "duration": 1920,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759478280,
+                "end": 1759478340,
+                "duration": 60,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759478340,
+                "end": 1759479180,
+                "duration": 840,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759479180,
+                "end": 1759487760,
+                "duration": 8580,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759487760,
+                "end": 1759488060,
+                "duration": 300,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759488060,
+                "end": 1759488120,
+                "duration": 60,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759488120,
+                "end": 1759489740,
+                "duration": 1620,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759489740,
+                "end": 1759489800,
+                "duration": 60,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759489800,
+                "end": 1759490340,
+                "duration": 540,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759490340,
+                "end": 1759490460,
+                "duration": 120,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759490460,
+                "end": 1759490580,
+                "duration": 120,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759490580,
+                "end": 1759490880,
+                "duration": 300,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759490880,
+                "end": 1759490940,
+                "duration": 60,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759490940,
+                "end": 1759491480,
+                "duration": 540,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759491480,
+                "end": 1759491540,
+                "duration": 60,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759491540,
+                "end": 1759493580,
+                "duration": 2040,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759493580,
+                "end": 1759493640,
+                "duration": 60,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759493640,
+                "end": 1759493940,
+                "duration": 300,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759493940,
+                "end": 1759495740,
+                "duration": 1800,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759495740,
+                "end": 1759498620,
+                "duration": 2880,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759498620,
+                "end": 1759499400,
+                "duration": 780,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759499400,
+                "end": 1759501500,
+                "duration": 2100,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759501500,
+                "end": 1759501680,
+                "duration": 180,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759501680,
+                "end": 1759501740,
+                "duration": 60,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759501740,
+                "end": 1759502100,
+                "duration": 360,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759502100,
+                "end": 1759504680,
+                "duration": 2580,
+                "status": "DRIVING",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759504680,
+                "end": 1759504860,
+                "duration": 180,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759504860,
+                "end": 1759528799,
+                "duration": 23939,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            }
+        ]
+    },
+    {
+        "day": "2025-10-03T22:00:00Z",
+        "summary": {
+            "shift": 0,
+            "driving": 0,
+            "rest": 86399
+        },
+        "activities": [
+            {
+                "start": 1759528800,
+                "end": 1759615199,
+                "duration": 86399,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            }
+        ]
+    },
+    {
+        "day": "2025-10-04T22:00:00Z",
+        "summary": {
+            "shift": 0,
+            "driving": 0,
+            "rest": 86399
+        },
+        "activities": [
+            {
+                "start": 1759615200,
+                "end": 1759701599,
+                "duration": 86399,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            }
+        ]
+    },
+    {
+        "day": "2025-10-05T22:00:00Z",
+        "summary": {
+            "shift": 120,
+            "driving": 0,
+            "rest": 86279
+        },
+        "activities": [
+            {
+                "start": 1759701600,
+                "end": 1759716240,
+                "duration": 14640,
+                "status": "REST",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759716240,
+                "end": 1759716360,
+                "duration": 120,
+                "status": "WORK",
+                "source": "ddd",
+                "unitId": 900002
+            },
+            {
+                "start": 1759716360,
+                "end": 1759787999,
+                "duration": 71639,
+                "status": "REST",
+                "source": "unkn",
+                "unitId": null
+            }
+        ]
+    }
+]

@@ -1,0 +1,13 @@
+[
+  { "driver_id": "test_driver_02", "vehicle_id": "test_vehicle_01", "activity_type": "DRIVING", "start_time": "2026-09-28T06:00:00Z", "end_time": "2026-09-28T08:00:00Z" },
+  { "driver_id": "test_driver_02", "vehicle_id": "test_vehicle_01", "activity_type": "DRIVING", "start_time": "2026-09-28T06:00:00Z", "end_time": "2026-09-28T08:00:00Z" },
+  { "driver_id": "test_driver_02", "vehicle_id": "test_vehicle_02", "activity_type": "WORK",    "start_time": "2026-09-28T07:30:00Z", "end_time": "2026-09-28T08:30:00Z" },
+  { "driver_id": "test_driver_02", "vehicle_id": "test_vehicle_01", "activity_type": "REST",    "start_time": "2026-09-28T10:00:00Z", "end_time": "2026-09-28T10:45:00Z" },
+  { "driver_id": "test_driver_02", "vehicle_id": "test_vehicle_01", "activity_type": "DRIVING", "start_time": "2026-09-28T10:45:00Z" },
+  { "driver_id": "test_driver_02", "vehicle_id": "test_vehicle_01", "activity_type": "DRIVING", "start_time": "2026-09-28T12:00:00Z", "end_time": "2026-09-28T11:00:00Z" },
+  { "driver_id": "test_driver_02", "vehicle_id": "test_vehicle_01", "activity_type": "SLEEPING", "start_time": "2026-09-28T11:00:00Z", "end_time": "2026-09-28T11:30:00Z" },
+  { "driver_id": "test_driver_02", "vehicle_id": "test_vehicle_01", "activity_type": "WORK",    "start_time": "2026-09-28T11:30:00", "end_time": "2026-09-28T12:00:00" },
+  { "driver_id": "test_driver_02", "vehicle_id": "test_vehicle_01", "activity_type": "WORK",    "start_time": "2026-09-28T14:00:00+02:00", "end_time": "2026-09-28T14:30:00+02:00" },
+  { "driver_id": "test_driver_02", "vehicle_id": "test_vehicle_01", "activity_type": "WORK",    "start_time": "2026-13-45T25:00:00Z", "end_time": "2026-09-28T14:00:00Z" },
+  { "vehicle_id": "test_vehicle_01", "activity_type": "DRIVING", "start_time": "2026-09-28T15:00:00Z", "end_time": "2026-09-28T16:00:00Z" }
+]

@@ -1,0 +1,18 @@
+{
+  "driver_id": "test_driver_01",
+  "activities": [
+    { "vehicle_id": "test_vehicle_01", "activity_type": "REST",    "start_time": "2026-09-26T18:00:00Z", "end_time": "2026-09-28T06:00:00Z" },
+    { "vehicle_id": "test_vehicle_01", "activity_type": "WORK",    "start_time": "2026-09-28T06:00:00Z", "end_time": "2026-09-28T06:30:00Z" },
+    { "vehicle_id": "test_vehicle_01", "activity_type": "DRIVING", "start_time": "2026-09-28T06:30:00Z", "end_time": "2026-09-28T10:30:00Z" },
+    { "vehicle_id": "test_vehicle_01", "activity_type": "BREAK",   "start_time": "2026-09-28T10:30:00Z", "end_time": "2026-09-28T11:15:00Z" },
+    { "vehicle_id": "test_vehicle_01", "activity_type": "DRIVING", "start_time": "2026-09-28T11:15:00Z", "end_time": "2026-09-28T15:15:00Z" },
+    { "vehicle_id": "test_vehicle_01", "activity_type": "AVAILABILITY", "start_time": "2026-09-28T15:15:00Z", "end_time": "2026-09-28T15:45:00Z" },
+    { "vehicle_id": "test_vehicle_01", "activity_type": "REST",    "start_time": "2026-09-28T15:45:00Z", "end_time": "2026-09-29T06:00:00Z" },
+    { "vehicle_id": "test_vehicle_01", "activity_type": "DRIVING", "start_time": "2026-09-29T06:00:00Z", "end_time": "2026-09-29T10:00:00Z" },
+    { "vehicle_id": "test_vehicle_01", "activity_type": "REST",    "start_time": "2026-09-29T10:00:00Z", "end_time": "2026-09-29T10:15:00Z" },
+    { "vehicle_id": "test_vehicle_01", "activity_type": "WORK",    "start_time": "2026-09-29T10:15:00Z", "end_time": "2026-09-29T10:45:00Z" },
+    { "vehicle_id": "test_vehicle_01", "activity_type": "REST",    "start_time": "2026-09-29T10:45:00Z", "end_time": "2026-09-29T11:15:00Z" },
+    { "vehicle_id": "test_vehicle_01", "activity_type": "DRIVING", "start_time": "2026-09-29T11:15:00Z", "end_time": "2026-09-29T15:45:00Z" },
+    { "vehicle_id": "test_vehicle_01", "activity_type": "REST",    "start_time": "2026-09-29T15:45:00Z", "end_time": "2026-09-30T06:00:00Z" }
+  ]
+}
