@@ -162,30 +162,27 @@ final class Format
     }
 
     /**
-     * "Start a rest of at least 65h50 (45h + 20h50) by Fri 9 Oct 08:10, or a daily rest of at
-     * least 29h50 (9h + 20h50) by Sat 10 Oct 20:10." Options whose start has passed are left out.
+     * "Start break latest Fri 9 Oct 08:10 — 65h50 (45h weekly rest + 20h50 compensation), finished by
+     * Mon 12 Oct 02:00. Or: start latest Sat 10 Oct 20:10 with a daily rest of 29h50 (9h + 20h50)."
+     * Options whose start has passed are left out.
      */
     public static function compensationPlan(array $finding, string $timezone, ?DateTimeImmutable $now = null): string
     {
         $d = $finding['details'];
         $now ??= new DateTimeImmutable;
         $owed = self::hm($d['owed_hours']);
-        $options = [];
-
-        foreach ([
-            ['with_weekly_rest_start_by', 'with_weekly_rest_hours', 'a rest of at least %s (45h + %s)'],
-            ['with_daily_rest_start_by', 'with_daily_rest_hours', 'a daily rest of at least %s (9h + %s)'],
-        ] as [$startKey, $hoursKey, $text]) {
-            if (new DateTimeImmutable($d[$startKey]) > $now) {
-                $options[] = sprintf($text, self::hm($d[$hoursKey]), $owed).' by '.self::local($d[$startKey], $timezone, 'D j M H:i');
-            }
-        }
-
         $deadline = self::local($finding['period_end'], $timezone, 'D j M H:i');
+        $open = fn (string $key) => new DateTimeImmutable($d[$key]) > $now;
+        $at = fn (string $key) => self::local($d[$key], $timezone, 'D j M H:i');
+        $weekly = self::hm($d['with_weekly_rest_hours']);
+        $daily = self::hm($d['with_daily_rest_hours']);
 
-        return $options
-            ? 'Start '.implode(', or ', $options).". It must be finished by {$deadline}."
-            : "Owes {$owed} in one block with a rest of at least 9h, finished by {$deadline}: not enough time left to take it.";
+        return match (true) {
+            $open('with_weekly_rest_start_by') && $open('with_daily_rest_start_by') => "Start break latest {$at('with_weekly_rest_start_by')} — {$weekly} (45h weekly rest + {$owed} compensation), finished by {$deadline}. "
+                ."Or: start latest {$at('with_daily_rest_start_by')} with a daily rest of {$daily} (9h + {$owed}).",
+            $open('with_daily_rest_start_by') => "Start break latest {$at('with_daily_rest_start_by')} — daily rest of {$daily} (9h + {$owed} compensation), finished by {$deadline}.",
+            default => "Not enough time left: {$owed} compensation in one block with a rest of at least 9h had to be finished by {$deadline}.",
+        };
     }
 
     public static function rule(string $rule): string

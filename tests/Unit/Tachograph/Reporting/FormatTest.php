@@ -27,7 +27,7 @@ class FormatTest extends TestCase
         $text = Format::compensationPlan($this->compensation(), 'Europe/Copenhagen', new DateTimeImmutable('2026-10-01T00:00:00Z'));
 
         $this->assertSame(
-            'Start a rest of at least 65h50 (45h + 20h50) by Fri 9 Oct 08:10, or a daily rest of at least 29h50 (9h + 20h50) by Sat 10 Oct 20:10. It must be finished by Mon 12 Oct 02:00.',
+            'Start break latest Fri 9 Oct 08:10 — 65h50 (45h weekly rest + 20h50 compensation), finished by Mon 12 Oct 02:00. Or: start latest Sat 10 Oct 20:10 with a daily rest of 29h50 (9h + 20h50).',
             $text,
         );
         $this->assertSame('Due Mon 12 Oct 02:00', Format::findingLabel($this->compensation(), 'Europe/Copenhagen'));
@@ -36,10 +36,9 @@ class FormatTest extends TestCase
     public function test_options_whose_start_has_passed_are_left_out(): void
     {
         $onlyDaily = Format::compensationPlan($this->compensation(), 'Europe/Copenhagen', new DateTimeImmutable('2026-10-09T12:00:00Z'));
-        $this->assertStringNotContainsString('65h50', $onlyDaily);
-        $this->assertStringContainsString('29h50', $onlyDaily);
+        $this->assertSame('Start break latest Sat 10 Oct 20:10 — daily rest of 29h50 (9h + 20h50 compensation), finished by Mon 12 Oct 02:00.', $onlyDaily);
 
         $tooLate = Format::compensationPlan($this->compensation(), 'Europe/Copenhagen', new DateTimeImmutable('2026-10-11T00:00:00Z'));
-        $this->assertStringContainsString('not enough time left', $tooLate);
+        $this->assertStringStartsWith('Not enough time left', $tooLate);
     }
 }
