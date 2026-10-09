@@ -3,6 +3,7 @@
 namespace Tests\Unit\Tachograph\Normalization;
 
 use App\Tachograph\Config\TachoConfig;
+use App\Tachograph\Data\ActivitySource;
 use App\Tachograph\Data\ActivityType;
 use App\Tachograph\Normalization\DataValidator;
 use App\Tachograph\Normalization\IssueType;
@@ -60,7 +61,7 @@ class DataValidatorTest extends TestCase
     public function test_gap_filler_overlapped_by_real_data_is_not_an_overlap(): void
     {
         $filler = TimelineFactory::driver()->startAt('2026-09-28 18:00')->unknown('4h')->activities();
-        $real = TimelineFactory::driver()->startAt('2026-09-28 18:00')->rest('11h', \App\Tachograph\Data\ActivitySource::DDD)->activities();
+        $real = TimelineFactory::driver()->startAt('2026-09-28 18:00')->rest('11h', ActivitySource::DDD)->activities();
 
         $this->assertSame([], $this->validate([...$filler, ...$real]));
     }

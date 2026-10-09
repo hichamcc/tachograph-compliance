@@ -26,7 +26,7 @@
                     {{ Format::value($f) }}
                     @if ($diff)<span class="ms-1 font-medium text-red-600 dark:text-red-400">{{ $diff }}</span>@endif
                 </x-table.cell>
-                <x-table.cell class="min-w-48 text-gray-600 dark:text-white/70">{{ Format::note($f) }}</x-table.cell>
+                <x-table.cell class="min-w-48 text-gray-600 dark:text-white/70">{{ Format::note($f, $report->displayTimezone) }}</x-table.cell>
                 <x-table.cell class="text-sm">
                     @if ($records->isNotEmpty() || $outside)
                         <details>

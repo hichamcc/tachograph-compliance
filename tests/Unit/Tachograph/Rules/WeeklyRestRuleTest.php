@@ -145,6 +145,12 @@ class WeeklyRestRuleTest extends RuleTestCase
         $this->assertStatuses([S::WARNING], $findings);
         $this->assertSame('PENDING', $findings[0]->details['compensation_status']);
         $this->assertSame('2026-10-12T00:00:00Z', $findings[0]->details['due_by']);
+
+        // 24h reduced rest owes 21h: latest start = deadline − (45h + 21h) or − (9h + 21h).
+        $this->assertSame(66.0, $findings[0]->details['with_weekly_rest_hours']);
+        $this->assertSame('2026-10-09T06:00:00Z', $findings[0]->details['with_weekly_rest_start_by']);
+        $this->assertSame(30.0, $findings[0]->details['with_daily_rest_hours']);
+        $this->assertSame('2026-10-10T18:00:00Z', $findings[0]->details['with_daily_rest_start_by']);
     }
 
     public function test_compensation_not_taken_by_deadline_is_a_violation(): void

@@ -80,7 +80,7 @@ final class Format
         return match (true) {
             $finding['status'] === 'VIOLATION' && $finding['certainty'] === 'POTENTIAL' => 'Potential violation',
             $finding['status'] === 'WARNING' && $finding['rule'] === 'DAILY_DRIVING_LIMIT' => 'Extended day',
-            $finding['status'] === 'WARNING' && $finding['rule'] === 'WEEKLY_REST_COMPENSATION' => 'Due '.self::local($finding['period_end'], $timezone, 'j M'),
+            $finding['status'] === 'WARNING' && $finding['rule'] === 'WEEKLY_REST_COMPENSATION' => 'Due '.self::local($finding['period_end'], $timezone, 'D j M H:i'),
             default => self::statusLabel($finding['status']),
         };
     }
@@ -119,8 +119,12 @@ final class Format
     }
 
     /** The finding message, only where it adds information. */
-    public static function note(array $finding): ?string
+    public static function note(array $finding, ?string $timezone = null): ?string
     {
+        if ($timezone && $finding['rule'] === 'WEEKLY_REST_COMPENSATION' && $finding['status'] === 'WARNING' && isset($finding['details']['with_weekly_rest_start_by'])) {
+            return self::compensationPlan($finding, $timezone);
+        }
+
         return $finding['status'] === 'INCOMPLETE_DATA' || in_array($finding['rule'], self::RULES_WITH_NOTES, true)
             ? $finding['message']
             : null;
@@ -155,6 +159,33 @@ final class Format
             'DAILY_REST', 'DAILY_REST_REDUCTIONS' => 'daily_rest',
             default => 'weekly_rest',
         };
+    }
+
+    /**
+     * "Start a rest of at least 65h50 (45h + 20h50) by Fri 9 Oct 08:10, or a daily rest of at
+     * least 29h50 (9h + 20h50) by Sat 10 Oct 20:10." Options whose start has passed are left out.
+     */
+    public static function compensationPlan(array $finding, string $timezone, ?DateTimeImmutable $now = null): string
+    {
+        $d = $finding['details'];
+        $now ??= new DateTimeImmutable;
+        $owed = self::hm($d['owed_hours']);
+        $options = [];
+
+        foreach ([
+            ['with_weekly_rest_start_by', 'with_weekly_rest_hours', 'a rest of at least %s (45h + %s)'],
+            ['with_daily_rest_start_by', 'with_daily_rest_hours', 'a daily rest of at least %s (9h + %s)'],
+        ] as [$startKey, $hoursKey, $text]) {
+            if (new DateTimeImmutable($d[$startKey]) > $now) {
+                $options[] = sprintf($text, self::hm($d[$hoursKey]), $owed).' by '.self::local($d[$startKey], $timezone, 'D j M H:i');
+            }
+        }
+
+        $deadline = self::local($finding['period_end'], $timezone, 'D j M H:i');
+
+        return $options
+            ? 'Start '.implode(', or ', $options).". It must be finished by {$deadline}."
+            : "Owes {$owed} in one block with a rest of at least 9h, finished by {$deadline}: not enough time left to take it.";
     }
 
     public static function rule(string $rule): string

@@ -34,7 +34,7 @@
                     </x-table.cell>
                     <x-table.cell>
                         @forelse ($w['compensation'] as $c)
-                            <div class="whitespace-nowrap">{{ Format::hm($c['owed_hours']) }} · {{ $c['status'] === 'PENDING' ? __('due') : strtolower($c['status']) }} <x-tacho.time :value="$c['due_by']" :tz="$report->displayTimezone" format="j M" /></div>
+                            <div class="whitespace-nowrap">{{ Format::hm($c['owed_hours']) }} · {{ $c['status'] === 'PENDING' ? __('due') : strtolower($c['status']) }} <x-tacho.time :value="$c['due_by']" :tz="$report->displayTimezone" format="D j M H:i" /></div>
                         @empty
                             –
                         @endforelse

@@ -271,6 +271,12 @@ final class WeeklyRestRule extends AbstractRule
                     'owed_hours' => self::hours($owed),
                     'due_by' => $deadline->format('Y-m-d\TH:i:s\Z'),
                     'completed_at' => $completedBy?->end->format('Y-m-d\TH:i:s\Z'),
+                    // The compensation is taken en bloc with another rest, and that whole rest must be
+                    // finished by the deadline: latest start = deadline − (rest + owed).
+                    'with_weekly_rest_hours' => self::hours($regular + $owed),
+                    'with_weekly_rest_start_by' => $deadline->modify('-'.($regular + $owed).' seconds')->format('Y-m-d\TH:i:s\Z'),
+                    'with_daily_rest_hours' => self::hours($dailyMin + $owed),
+                    'with_daily_rest_start_by' => $deadline->modify('-'.($dailyMin + $owed).' seconds')->format('Y-m-d\TH:i:s\Z'),
                 ],
             );
         }
