@@ -51,6 +51,7 @@ class ActivityStore
                 $this->upsertActivities($driver, $activities, $run);
                 $this->upsertEvents($driver, $result, $run);
                 $this->storeIssues($run, $driver, [...$result->issues($externalId), ...$this->validator->validate($activities)]);
+                $driver->refreshLastActive();
 
                 $drivers[] = $driver;
             }

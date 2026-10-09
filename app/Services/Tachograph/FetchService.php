@@ -10,6 +10,7 @@ use App\Models\ProcessingRun;
 use App\Models\User;
 use App\RunStatus;
 use App\RunType;
+use App\Services\Mapon\MaponException;
 use App\Tachograph\Data\Period;
 use DateTimeImmutable;
 use DateTimeZone;
@@ -81,7 +82,7 @@ class FetchService
                 }
             })
             ->catch(function (Batch $batch, Throwable $e) use ($fetchRunId, $evaluateRunId) {
-                $message = $e instanceof \App\Services\Mapon\MaponException ? $e->getMessage() : 'Fetching data from Mapon failed.';
+                $message = $e instanceof MaponException ? $e->getMessage() : 'Fetching data from Mapon failed.';
                 ProcessingRun::find($fetchRunId)?->markFailed($message);
                 ProcessingRun::find($evaluateRunId)?->markFailed('Not evaluated: '.$message);
             })
@@ -91,6 +92,44 @@ class FetchService
         $evaluateRun?->update(['batch_id' => $batch->id]);
 
         return ($evaluateRun ?? $fetchRun)->refresh();
+    }
+
+    /**
+     * Download now, in this process (no queue): used by tacho:refresh from the command line,
+     * where there is no request time limit. Returns the fetch run, or null when nothing
+     * needed downloading.
+     *
+     * @throws Throwable when Mapon fails (the run is marked failed first)
+     */
+    public function fetchNow(Driver $driver, Period $report): ?ProcessingRun
+    {
+        $window = $driver->isMapon() ? $this->fetchWindow($driver, $report) : null;
+
+        if ($window === null) {
+            return null;
+        }
+
+        $run = ProcessingRun::create([
+            'type' => RunType::FETCH,
+            'status' => RunStatus::PENDING,
+            'driver_id' => $driver->id,
+            'period_start' => $window->start,
+            'period_end' => $window->end,
+        ]);
+
+        try {
+            foreach ($this->chunks($window) as $chunk) {
+                app()->call([new FetchDriverActivitiesChunk($run->id, $driver->id, $chunk->start, $chunk->end), 'handle']);
+            }
+        } catch (Throwable $e) {
+            $run->markFailed($e instanceof MaponException ? $e->getMessage() : 'Fetching data from Mapon failed.');
+
+            throw $e;
+        }
+
+        $run->markDone();
+
+        return $run;
     }
 
     /**

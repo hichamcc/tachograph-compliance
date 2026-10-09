@@ -59,8 +59,9 @@ class FetchDriverActivitiesChunk implements ShouldQueue
                 'attempt' => $this->attempts(),
             ]);
 
-            // Configuration / permission errors will not fix themselves: fail immediately.
-            if (! $e->isRetryable()) {
+            // Configuration / permission errors will not fix themselves: fail immediately
+            // (when queued; run directly, e.g. by tacho:refresh, the caller handles it).
+            if (! $e->isRetryable() && $this->job) {
                 $this->fail($e);
 
                 return;
@@ -78,6 +79,7 @@ class FetchDriverActivitiesChunk implements ShouldQueue
 
         $result = $normalizer->normalize($driver->external_id, [new RawChunk($payload, $raw->id)]);
         $store->persist($result, $run, origin: 'mapon');
+        $driver->update(['last_fetched_at' => now()]);
 
         Log::channel('tachograph')->info('Fetch chunk stored', [
             'processing_id' => $run->id,

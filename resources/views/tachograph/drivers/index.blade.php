@@ -12,7 +12,16 @@
             <x-label for="q" :value="__('Search')" class="sr-only" />
             <x-input name="q" :value="$q" placeholder="{{ __('Search by name or driver ID') }}" autocomplete="off" />
             @if (request('sort'))<input type="hidden" name="sort" value="{{ request('sort') }}">@endif
+            @if ($showInactive)<input type="hidden" name="inactive" value="1">@endif
             <x-button x-show="false">{{ __('Search') }}</x-button>
+            @if ($inactiveCount && $q === '')
+                <x-button size="sm" class="h-10 shrink-0"
+                    href="{{ route('tachograph.drivers.index', array_filter(['sort' => request('sort'), 'inactive' => $showInactive ? null : 1])) }}"
+                    :aria-pressed="$showInactive ? 'true' : 'false'"
+                    title="{{ __('Drivers without driving or work in the last :weeks weeks', ['weeks' => $activeWeeks]) }}">
+                    {{ $showInactive ? __('Hide inactive') : __('Show inactive (:n)', ['n' => $inactiveCount]) }}
+                </x-button>
+            @endif
         </form>
 
         <div id="drivers">
@@ -30,10 +39,15 @@
                     <x-slot:body>
                         @foreach ($drivers as $driver)
                             @php($run = $runs[$driver->latest_run_id] ?? null)
-                            <x-table.row>
+                            @php($dimmed = $driver->isMapon() && ! $driver->isRecentlyActive())
+                            <x-table.row :class="$dimmed ? 'opacity-55' : ''">
                                 <x-table.cell>
                                     <x-link href="{{ route('tachograph.drivers.show', $driver) }}" class="font-semibold">{{ $driver->label() }}</x-link>
-                                    @unless ($driver->is_active)<x-badge size="sm" class="ms-2">{{ __('Inactive') }}</x-badge>@endunless
+                                    @if (! $driver->is_active)
+                                        <x-badge size="sm" class="ms-2">{{ __('Removed in Mapon') }}</x-badge>
+                                    @elseif ($dimmed)
+                                        <x-badge size="sm" class="ms-2">{{ __('Inactive') }}</x-badge>
+                                    @endif
                                     @unless ($driver->isMapon())<x-badge size="sm" color="violet" class="ms-2">{{ __('Imported') }}</x-badge>@endunless
                                 </x-table.cell>
                                 <x-table.cell class="tabular-nums text-gray-500">{{ $driver->external_id }}</x-table.cell>

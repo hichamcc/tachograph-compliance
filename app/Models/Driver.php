@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\CarbonInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,6 +15,8 @@ class Driver extends Model
     {
         return [
             'is_active' => 'boolean',
+            'last_active_at' => 'datetime',
+            'last_fetched_at' => 'datetime',
         ];
     }
 
@@ -38,9 +41,41 @@ class Driver extends Model
         return $this->origin === 'mapon';
     }
 
+    /** Still present in Mapon. */
     public function scopeActive(Builder $query): void
     {
         $query->where('is_active', true);
+    }
+
+    /** Present in Mapon and drove or worked within the last `active_weeks` weeks. */
+    public function scopeRecentlyActive(Builder $query): void
+    {
+        $query->where('is_active', true)->where('last_active_at', '>=', self::activeSince());
+    }
+
+    public function scopeNotRecentlyActive(Builder $query): void
+    {
+        $query->where(fn ($q) => $q->where('is_active', false)
+            ->orWhereNull('last_active_at')
+            ->orWhere('last_active_at', '<', self::activeSince()));
+    }
+
+    public function isRecentlyActive(): bool
+    {
+        return $this->is_active && $this->last_active_at?->gte(self::activeSince());
+    }
+
+    public static function activeSince(): CarbonInterface
+    {
+        return now()->subWeeks((int) config('tachograph.active_weeks', 5));
+    }
+
+    /** Recompute last_active_at from stored driving/work/availability records. */
+    public function refreshLastActive(): void
+    {
+        $this->update(['last_active_at' => $this->activityRecords()
+            ->whereIn('type', ['DRIVING', 'WORK', 'AVAILABILITY'])
+            ->max('end_at')]);
     }
 
     public function processingRuns(): HasMany

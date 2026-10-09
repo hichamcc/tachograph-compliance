@@ -10,6 +10,11 @@ return [
     'week_timezone' => env('TACHO_WEEK_TIMEZONE', 'UTC'),
     'week_starts_on' => 'monday',
 
+    // Drivers with driving/work in this many weeks are "active": listed by default, refreshed
+    // every run of tacho:refresh. Others are hidden behind a toggle and refreshed once a day.
+    'active_weeks' => (int) env('TACHO_ACTIVE_WEEKS', 5),
+    'refresh_inactive_hours' => 24,
+
     // How far back to fetch before the report start (history for 2-week & compensation rules).
     'history_days' => 28,
     'fetch_chunk_days' => 28, // must be <= 31 (Mapon limit)

@@ -6,6 +6,7 @@ use App\Models\ActivityRecord;
 use App\Models\Driver;
 use App\Models\ProcessingRun;
 use App\Models\ValidationIssue;
+use App\Models\Vehicle;
 use App\RunStatus;
 use App\Services\Tachograph\ActivityStore;
 use App\Tachograph\Data\ActivityType;
@@ -83,7 +84,7 @@ class ImportFileCommandTest extends TestCase
 
         $this->assertSame(220, ActivityRecord::count());
         $this->assertSame(1, ActivityRecord::where('type', 'UNKNOWN')->count());
-        $this->assertSame(2, \App\Models\Vehicle::count());
+        $this->assertSame(2, Vehicle::count());
     }
 
     public function test_mapon_format_requires_driver(): void

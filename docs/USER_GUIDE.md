@@ -7,7 +7,8 @@ This tool checks drivers' tachograph data from Mapon against the EU driving and 
 **Tachograph → Drivers** lists every driver, with the time their data runs until, their last evaluation and its violation count.
 
 - **Sync from Mapon** refreshes the list. Drivers removed in Mapon are marked *Inactive*.
-- Use the search box to find a driver by name or ID.
+- Use the search box to find a driver by name or ID. Search covers all drivers.
+- By default the list shows drivers who drove or worked in the last **5 weeks**. **Show inactive (n)** shows the others too (greyed out); drivers removed in Mapon are marked *Removed in Mapon*.
 
 ## Running a check
 
@@ -17,7 +18,7 @@ This tool checks drivers' tachograph data from Mapon against the EU driving and 
 
 The app downloads the driver's data from Mapon, including 4 weeks of history that the two-week and weekly-rest rules need, and checks it. This takes a few seconds (longer for a driver's first check). When it says *Finished*, click **View report**. If it says *Failed*, Mapon could not be reached; try again.
 
-Checks only run when you start them; the driver list and dashboard show each driver's latest check.
+The app also refreshes itself every 2 hours: it downloads the newest data for all drivers and re-checks the current week, so the driver list and dashboard are up to date without clicking anything. A check you start yourself is kept as its own report.
 
 ## Reading the report
 

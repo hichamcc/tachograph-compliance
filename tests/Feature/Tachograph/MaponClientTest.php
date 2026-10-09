@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Tachograph;
 
+use App\Logging\RedactSecrets;
 use App\Services\Mapon\MaponClient;
 use App\Services\Mapon\MaponException;
 use Illuminate\Http\Client\ConnectionException;
@@ -180,7 +181,7 @@ class MaponClientTest extends TestCase
 
     public function test_log_redaction_strips_key_and_query_values(): void
     {
-        $redacted = \App\Logging\RedactSecrets::redact('GET https://mapon.com/api/v1/x.json?key=other&driver=1 '.self::KEY);
+        $redacted = RedactSecrets::redact('GET https://mapon.com/api/v1/x.json?key=other&driver=1 '.self::KEY);
 
         $this->assertStringNotContainsString(self::KEY, $redacted);
         $this->assertStringNotContainsString('key=other', $redacted);

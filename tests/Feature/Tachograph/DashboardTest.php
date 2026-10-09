@@ -40,10 +40,10 @@ class DashboardTest extends TestCase
     {
         $this->travelTo(now()->setDate(2026, 10, 6)->setTime(12, 0));
 
-        $a = Driver::create(['external_id' => '1', 'origin' => 'mapon', 'display_name' => 'Alpha Driver']);
-        $b = Driver::create(['external_id' => '2', 'origin' => 'mapon', 'display_name' => 'Bravo Driver']);
-        $c = Driver::create(['external_id' => '3', 'origin' => 'mapon', 'display_name' => 'Charlie Driver']);
-        Driver::create(['external_id' => '4', 'origin' => 'mapon']);
+        $a = Driver::create(['external_id' => '1', 'origin' => 'mapon', 'display_name' => 'Alpha Driver', 'last_active_at' => now()]);
+        $b = Driver::create(['external_id' => '2', 'origin' => 'mapon', 'display_name' => 'Bravo Driver', 'last_active_at' => now()]);
+        $c = Driver::create(['external_id' => '3', 'origin' => 'mapon', 'display_name' => 'Charlie Driver', 'last_active_at' => now()]);
+        Driver::create(['external_id' => '4', 'origin' => 'mapon', 'last_active_at' => now()->subWeeks(6)]); // not active
 
         // Older run of A had a violation; the latest one does not count it twice.
         $this->evaluation($a, [['DAILY_REST', 'VIOLATION', 'CONFIRMED', null]], '-2 days');
@@ -62,7 +62,7 @@ class DashboardTest extends TestCase
         $this->be(User::factory()->create());
 
         $response = $this->get(route('app'))->assertOk();
-        $response->assertViewHas('headline', ['checked' => 3, 'active' => 4, 'confirmed' => 1, 'potential' => 1, 'incomplete' => 1]);
+        $response->assertViewHas('headline', ['checked' => 3, 'active' => 3, 'confirmed' => 1, 'potential' => 1, 'incomplete' => 1]);
         $response->assertViewHas('attention', fn ($runs) => $runs->pluck('driver.display_name')->all() === ['Alpha Driver', 'Bravo Driver']
             && $runs->first()->id === $latestA->id && $runs->first()->confirmed === 2);
         $response->assertViewHas('compensation', fn ($rows) => $rows->count() === 1 && $rows->first()->driver_id === $a->id);

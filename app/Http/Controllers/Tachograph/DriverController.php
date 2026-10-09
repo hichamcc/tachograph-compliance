@@ -23,6 +23,8 @@ class DriverController extends Controller
     public function index(Request $request)
     {
         $q = trim((string) $request->query('q', ''));
+        // Default list: drivers active in the last weeks. Search always covers everyone.
+        $showInactive = $request->boolean('inactive') || $q !== '';
         [$sort, $direction] = array_pad(explode('__', (string) $request->query('sort', '')), 2, 'asc');
         $direction = $direction === 'desc' ? 'desc' : 'asc';
 
@@ -44,12 +46,13 @@ class DriverController extends Controller
                     ->where('status', 'VIOLATION')
                     ->where('processing_run_id', $latestRun),
             ])
+            ->unless($showInactive, fn ($query) => $query->where(fn ($w) => $w->recentlyActive()->orWhere('origin', '!=', 'mapon')))
             ->when($q !== '', fn ($query) => $query->where(fn ($w) => $w
                 ->where('display_name', 'like', "%{$q}%")
                 ->orWhere('external_id', 'like', "%{$q}%")))
             ->when($sort === 'last_check', fn ($query) => $query->orderBy('last_check_at', $direction))
             ->when($sort === 'violations', fn ($query) => $query->orderBy('latest_violations', $direction)->orderByDesc('last_check_at'))
-            ->orderByDesc('is_active')
+            ->orderByRaw('case when is_active = 1 and last_active_at >= ? then 0 else 1 end', [Driver::activeSince()])
             ->orderBy('display_name')
             ->orderBy('external_id')
             ->paginate(25)
@@ -65,6 +68,9 @@ class DriverController extends Controller
             'drivers' => $drivers,
             'runs' => $runs,
             'q' => $q,
+            'showInactive' => $request->boolean('inactive'),
+            'inactiveCount' => Driver::where('origin', 'mapon')->notRecentlyActive()->count(),
+            'activeWeeks' => (int) config('tachograph.active_weeks', 5),
             'allowImport' => (bool) config('tachograph.allow_import'),
         ]);
     }

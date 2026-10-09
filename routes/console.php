@@ -18,9 +18,10 @@ Schedule::command('queue:work --stop-when-empty --max-time=50 --tries=3')
     ->everyMinute()
     ->withoutOverlapping();
 
-// Nightly: refresh drivers, then fetch recent activity and evaluate the last 7 days.
-Schedule::command('tacho:sync-drivers')->dailyAt('02:45');
-Schedule::command('tacho:fetch --all --since="-7 days"')->dailyAt('03:00');
+// Every 2 hours: sync drivers, download the latest data (keeping 4+ weeks) and re-check the
+// current week. Without schedule:run, call it from cron directly:
+//   0 */2 * * * cd /path/to/app && php artisan tacho:refresh >> /dev/null 2>&1
+Schedule::command('tacho:refresh')->everyTwoHours()->withoutOverlapping();
 
 // Housekeeping
 Schedule::command('queue:prune-failed --hours=168')->daily();

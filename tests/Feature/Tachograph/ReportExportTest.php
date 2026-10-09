@@ -9,7 +9,9 @@ use App\Models\User;
 use App\RunStatus;
 use App\RunType;
 use App\Services\Tachograph\EvaluationService;
+use App\Tachograph\Reporting\CsvReport;
 use App\Tachograph\Reporting\JsonReport;
+use App\Tachograph\Reporting\ReportData;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
@@ -148,8 +150,8 @@ class ReportExportTest extends TestCase
 
     public function test_csv_cells_are_protected_against_formula_injection(): void
     {
-        $csv = new \App\Tachograph\Reporting\CsvReport;
-        $report = new \App\Tachograph\Reporting\ReportData('x', '2026-01-01T00:00:00Z', ['id' => '=cmd', 'name' => null], ['start' => '2026-01-01T00:00:00Z', 'end' => '2026-01-02T00:00:00Z'], 'UTC', [], [], [], [], [], [], [[
+        $csv = new CsvReport;
+        $report = new ReportData('x', '2026-01-01T00:00:00Z', ['id' => '=cmd', 'name' => null], ['start' => '2026-01-01T00:00:00Z', 'end' => '2026-01-02T00:00:00Z'], 'UTC', [], [], [], [], [], [], [[
             'type' => 'DRIVING', 'start' => 'a', 'end' => 'b', 'duration_hours' => -1, 'source' => 'ddd', 'uncertain' => false, 'vehicle_id' => '=HYPERLINK("x")', 'source_event_ids' => [],
         ]]);
 

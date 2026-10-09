@@ -100,6 +100,7 @@ class EvaluationService
             });
 
             $run->markDone();
+            $this->replaceOlderAutomaticRuns($run);
         } catch (Throwable $e) {
             $run->markFailed('Evaluation failed ('.class_basename($e).').');
             Log::channel('tachograph')->error('Evaluation failed', ['processing_id' => $run->id, 'driver' => $driver->logId(), 'exception' => class_basename($e)]);
@@ -117,6 +118,32 @@ class EvaluationService
         ]);
 
         return $run;
+    }
+
+    /**
+     * Automatic checks (no user, e.g. tacho:refresh every 2 hours) replace the previous
+     * automatic report for the same driver and period instead of piling up.
+     * Checks started by a user are always kept.
+     */
+    private function replaceOlderAutomaticRuns(ProcessingRun $run): void
+    {
+        if ($run->user_id !== null) {
+            return;
+        }
+
+        ProcessingRun::query()
+            ->where('driver_id', $run->driver_id)
+            ->where('type', RunType::EVALUATE->value)
+            ->whereNull('user_id')
+            ->where('id', '<', $run->id)
+            ->where('period_start', $run->getRawOriginal('period_start'))
+            ->where('period_end', $run->getRawOriginal('period_end'))
+            ->whereIn('status', [RunStatus::DONE->value, RunStatus::FAILED->value])
+            ->get()
+            ->each(function (ProcessingRun $old) {
+                $this->reports->delete($old);
+                $old->delete(); // findings and issues cascade
+            });
     }
 
     /**

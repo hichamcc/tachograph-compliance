@@ -21,6 +21,11 @@ class ReportStore
         Storage::disk('local')->put($this->path($run), json_encode($report->toArray(), JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR));
     }
 
+    public function delete(ProcessingRun $run): void
+    {
+        Storage::disk('local')->delete($this->path($run));
+    }
+
     public function load(ProcessingRun $run): ?ReportData
     {
         $disk = Storage::disk('local');

@@ -79,7 +79,7 @@ class DashboardData
 
         return [
             'checked' => $runs->count(),
-            'active' => Driver::active()->where('origin', 'mapon')->count(),
+            'active' => Driver::recentlyActive()->where('origin', 'mapon')->count(),
             'confirmed' => $runs->where('confirmed', '>', 0)->count(),
             'potential' => $runs->where('confirmed', 0)->where('potential', '>', 0)->count(),
             'incomplete' => $runs->where('confirmed', 0)->where('potential', 0)->where('incomplete', '>', 0)->count(),

@@ -83,6 +83,22 @@ This drives:
 
 Use the PHP CLI binary matching the web PHP version (e.g. `/usr/local/bin/php83`) if `php` points to another version.
 
+### Automatic refresh every 2 hours (recommended, works with `QUEUE_CONNECTION=sync`)
+
+Add **one** cron job in the hosting panel:
+
+```cron
+0 */2 * * * cd /var/www/wttsystem.dk/tachograph && php artisan tacho:refresh >> /dev/null 2>&1
+```
+
+Every run it:
+1. syncs the driver list from Mapon;
+2. downloads the latest data for each driver — the first run fetches 4+ weeks per driver, later runs only the last few days;
+3. re-checks the **current week** (on Monday–Wednesday also the previous week, because late card downloads change it) for drivers active in the last 5 weeks. The automatic report for a week is replaced, not duplicated; checks started by a user are kept;
+4. deletes raw Mapon data older than 90 days.
+
+Drivers without driving/work in the last 5 weeks (`TACHO_ACTIVE_WEEKS`) are refreshed only once a day and are hidden from the driver list by default. The command runs in the cron process (no queue, no request time limit) and skips itself if the previous run is still going. Run it once by hand after deploying to load the initial 4 weeks: `php artisan tacho:refresh`.
+
 ### Without cron (`QUEUE_CONNECTION=sync`)
 
 This is a supported mode: there is no queue and no cron, and everything runs during the request when someone clicks **Run check** or **Sync from Mapon**.

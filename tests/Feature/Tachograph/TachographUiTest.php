@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Tachograph;
 
+use App\Models\ComplianceFinding;
 use App\Models\Driver;
 use App\Models\ProcessingRun;
 use App\Models\User;
@@ -40,7 +41,7 @@ class TachographUiTest extends TestCase
 
     public function test_driver_list_and_search(): void
     {
-        Driver::create(['external_id' => '555', 'origin' => 'mapon', 'display_name' => 'Somebody Else']);
+        Driver::create(['external_id' => '555', 'origin' => 'mapon', 'display_name' => 'Somebody Else', 'last_active_at' => now()]);
         $this->be(User::factory()->create());
 
         $this->get(route('tachograph.drivers.index'))->assertOk()->assertSee('test_driver_01')->assertSee('Somebody Else')->assertSee('Tachograph');
@@ -161,11 +162,11 @@ class TachographUiTest extends TestCase
     {
         $this->be(User::factory()->create());
         $make = function (string $id, int $violations, string $checked) {
-            $driver = Driver::create(['external_id' => $id, 'origin' => 'mapon', 'display_name' => "Driver {$id}"]);
+            $driver = Driver::create(['external_id' => $id, 'origin' => 'mapon', 'display_name' => "Driver {$id}", 'last_active_at' => now()]);
             $run = ProcessingRun::create(['type' => RunType::EVALUATE, 'status' => RunStatus::DONE, 'driver_id' => $driver->id]);
             $run->forceFill(['created_at' => $checked])->save();
             for ($i = 0; $i < $violations; $i++) {
-                \App\Models\ComplianceFinding::create([
+                ComplianceFinding::create([
                     'processing_run_id' => $run->id, 'driver_id' => $driver->id, 'rule' => 'DAILY_REST', 'status' => 'VIOLATION',
                     'certainty' => 'CONFIRMED', 'severity' => 'HIGH', 'period_start' => '2026-09-28', 'period_end' => '2026-09-29',
                     'unit' => 'hours', 'message' => 'x',
@@ -195,5 +196,26 @@ class TachographUiTest extends TestCase
         $this->post('/register', ['name' => 'X', 'email' => 'x@example.com', 'password' => 'secret-password-1', 'password_confirmation' => 'secret-password-1'])->assertNotFound();
         $this->get(route('login'))->assertOk()->assertDontSee('Sign up');
         $this->assertDatabaseMissing('users', ['email' => 'x@example.com']);
+    }
+
+    public function test_driver_list_hides_inactive_drivers_behind_a_toggle(): void
+    {
+        $this->be(User::factory()->create());
+        Driver::create(['external_id' => '101', 'origin' => 'mapon', 'display_name' => 'Recent Driver', 'last_active_at' => now()->subDays(3)]);
+        Driver::create(['external_id' => '102', 'origin' => 'mapon', 'display_name' => 'Old Driver', 'last_active_at' => now()->subWeeks(6)]);
+        Driver::create(['external_id' => '103', 'origin' => 'mapon', 'display_name' => 'Never Driver']);
+        Driver::create(['external_id' => '104', 'origin' => 'mapon', 'display_name' => 'Gone Driver', 'is_active' => false, 'last_active_at' => now()]);
+
+        $this->get(route('tachograph.drivers.index'))->assertOk()
+            ->assertSee('Recent Driver')
+            ->assertDontSee('Old Driver')->assertDontSee('Never Driver')->assertDontSee('Gone Driver')
+            ->assertSee('Show inactive (3)');
+
+        $this->get(route('tachograph.drivers.index', ['inactive' => 1]))->assertOk()
+            ->assertSee('Recent Driver')->assertSee('Old Driver')->assertSee('Never Driver')
+            ->assertSee('Removed in Mapon')->assertSee('Hide inactive');
+
+        // Search covers everyone.
+        $this->get(route('tachograph.drivers.index', ['q' => 'Old']))->assertOk()->assertSee('Old Driver');
     }
 }

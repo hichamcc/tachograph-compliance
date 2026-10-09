@@ -6,6 +6,7 @@ use App\Models\ActivityRecord;
 use App\Models\Driver;
 use App\Models\ProcessingRun;
 use App\Models\RawPayload;
+use App\Models\User;
 use App\RunStatus;
 use App\RunType;
 use App\Services\Tachograph\EvaluationService;
@@ -150,7 +151,7 @@ class FetchTest extends TestCase
     public function test_temporary_mapon_outage_in_sync_mode_shows_a_failed_run_not_an_error_page(): void
     {
         Http::fake(['*' => Http::response('Bad gateway', 502)]);
-        $this->be(\App\Models\User::factory()->create());
+        $this->be(User::factory()->create());
 
         $response = $this->post(route('tachograph.runs.store', $this->driver), ['start' => '2025-09-22', 'end' => '2025-09-28']);
 
