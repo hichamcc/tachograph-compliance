@@ -101,9 +101,9 @@ class FetchService
      *
      * @throws Throwable when Mapon fails (the run is marked failed first)
      */
-    public function fetchNow(Driver $driver, Period $report): ?ProcessingRun
+    public function fetchNow(Driver $driver, Period $report, bool $full = false): ?ProcessingRun
     {
-        $window = $driver->isMapon() ? $this->fetchWindow($driver, $report) : null;
+        $window = $driver->isMapon() ? $this->fetchWindow($driver, $report, fullWindow: $full) : null;
 
         if ($window === null) {
             return null;
@@ -136,7 +136,7 @@ class FetchService
      * Full history window when the stored data does not reach back far enough; otherwise only
      * the last few days before the newest stored record up to the end of the window.
      */
-    public function fetchWindow(Driver $driver, Period $report): ?Period
+    public function fetchWindow(Driver $driver, Period $report, bool $fullWindow = false): ?Period
     {
         $full = $this->evaluation->dataWindow($report);
         $now = new DateTimeImmutable('now', new DateTimeZone('UTC'));
@@ -150,7 +150,7 @@ class FetchService
         $latest = ActivityRecord::where('driver_id', $driver->id)->max('end_at');
         $utc = new DateTimeZone('UTC');
 
-        if ($earliest === null || new DateTimeImmutable($earliest, $utc) > $full->start) {
+        if ($fullWindow || $earliest === null || new DateTimeImmutable($earliest, $utc) > $full->start) {
             return new Period($full->start, $end);
         }
 

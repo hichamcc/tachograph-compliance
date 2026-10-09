@@ -8,6 +8,7 @@ use App\Models\ProcessingRun;
 use App\Models\TachoEventRecord;
 use App\Models\ValidationIssue;
 use App\Models\Vehicle;
+use App\RunType;
 use App\Tachograph\Data\Activity;
 use App\Tachograph\Data\ActivitySource;
 use App\Tachograph\Data\ActivityType;
@@ -37,16 +38,23 @@ class ActivityStore
      * Upserts activities and events (idempotent on driver + source event key) and records issues.
      *
      * @param  string  $origin  origin for drivers created by this call (mapon | local)
+     * @param  bool  $replace  the result is the complete, current version of the period it covers
+     *                         (a Mapon download): stored records starting in that period that are not
+     *                         in the result are stale and removed, with their data-problem notes
      * @return list<Driver> drivers touched
      */
-    public function persist(NormalizationResult $result, ProcessingRun $run, string $origin = 'mapon'): array
+    public function persist(NormalizationResult $result, ProcessingRun $run, string $origin = 'mapon', bool $replace = false): array
     {
         $drivers = [];
 
-        DB::transaction(function () use ($result, $run, $origin, &$drivers) {
+        DB::transaction(function () use ($result, $run, $origin, $replace, &$drivers) {
             foreach ($result->driverIds() as $externalId) {
                 $driver = Driver::firstOrCreate(['external_id' => $externalId], ['origin' => $origin]);
                 $activities = $result->activities($externalId);
+
+                if ($replace) {
+                    $this->removeStale($driver, $result, $run);
+                }
 
                 $this->upsertActivities($driver, $activities, $run);
                 $this->upsertEvents($driver, $result, $run);
@@ -97,6 +105,46 @@ class ActivityStore
                 rawPayloadId: $r->raw_payload_id,
             ))
             ->all();
+    }
+
+    /**
+     * Mapon re-cuts recent days as data arrives (gap fillers shrink, records are re-split), so a
+     * re-download is the new truth for the span it covers.
+     */
+    private function removeStale(Driver $driver, NormalizationResult $result, ProcessingRun $run): void
+    {
+        $activities = $result->activities($driver->external_id);
+        $events = $result->events($driver->external_id);
+        $times = [
+            ...array_map(fn (Activity $a) => [$a->start, $a->end], $activities),
+            ...array_map(fn ($e) => [$e->occurredAt, $e->occurredAt], $events),
+        ];
+
+        if ($times === []) {
+            return; // nothing returned: keep what we have
+        }
+
+        $from = self::format(min(array_column($times, 0)));
+        $till = self::format(max(array_column($times, 1)));
+        $keys = array_map(fn (Activity $a) => $a->sourceEventIds[0], $activities);
+        $eventKeys = array_map(fn ($e) => $e->sourceEventId, $events);
+
+        ActivityRecord::where('driver_id', $driver->id)
+            ->where('start_at', '>=', $from)->where('start_at', '<', $till)
+            ->whereNotIn('source_event_key', $keys)
+            ->delete();
+
+        TachoEventRecord::where('driver_id', $driver->id)
+            ->where('occurred_at', '>=', $from)->where('occurred_at', '<=', $till)
+            ->whereNotIn('source_event_key', $eventKeys)
+            ->delete();
+
+        // Notes recorded by earlier downloads/imports for this span are recomputed now.
+        ValidationIssue::where('driver_id', $driver->id)
+            ->where('processing_run_id', '!=', $run->id)
+            ->whereHas('processingRun', fn ($q) => $q->where('type', '!=', RunType::EVALUATE->value))
+            ->where('period_start', '>=', $from)->where('period_start', '<', $till)
+            ->delete();
     }
 
     /** @param list<Activity> $activities */

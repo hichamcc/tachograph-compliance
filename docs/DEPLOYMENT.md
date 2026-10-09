@@ -97,6 +97,8 @@ Every run it:
 3. re-checks the **current week** (on Monday–Wednesday also the previous week, because late card downloads change it) for drivers active in the last 5 weeks. The automatic report for a week is replaced, not duplicated; checks started by a user are kept;
 4. deletes raw Mapon data older than 90 days.
 
+A re-download replaces what was stored for the period Mapon returned (Mapon re-cuts recent days as card data arrives), so stale records and their data-problem notes do not pile up. To rebuild everything once — e.g. after upgrading from a version without this — run `php artisan tacho:refresh --all --full` over SSH.
+
 Drivers without driving/work in the last 5 weeks (`TACHO_ACTIVE_WEEKS`) are refreshed only once a day and are hidden from the driver list by default. The command runs in the cron process (no queue, no request time limit) and skips itself if the previous run is still going. Run it once by hand after deploying to load the initial 4 weeks: `php artisan tacho:refresh`.
 
 ### Automatic refresh with a "Call URL" cron (hosts without command cron)

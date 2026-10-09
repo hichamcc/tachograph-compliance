@@ -46,7 +46,7 @@ class RefreshService
      * @param  bool|null  $sync  sync the driver list first (null: when due)
      * @return array{refreshed: int, checked: int, failed: int, remaining: int, seconds: int, synced: bool}|null null when another refresh is running
      */
-    public function run(?float $budgetSeconds = null, array $only = [], bool $all = false, ?bool $sync = null, ?callable $onDriver = null): ?array
+    public function run(?float $budgetSeconds = null, array $only = [], bool $all = false, ?bool $sync = null, ?callable $onDriver = null, bool $full = false): ?array
     {
         $lock = Cache::lock('tachograph.refresh', 6 * 3600);
 
@@ -55,7 +55,7 @@ class RefreshService
         }
 
         try {
-            return $this->refresh($budgetSeconds, $only, $all, $sync, $onDriver);
+            return $this->refresh($budgetSeconds, $only, $all, $sync, $onDriver, $full);
         } finally {
             $lock->release();
         }
@@ -84,7 +84,7 @@ class RefreshService
             ->values();
     }
 
-    private function refresh(?float $budgetSeconds, array $only, bool $all, ?bool $sync, ?callable $onDriver): array
+    private function refresh(?float $budgetSeconds, array $only, bool $all, ?bool $sync, ?callable $onDriver, bool $full = false): array
     {
         $started = microtime(true);
         $synced = false;
@@ -117,7 +117,7 @@ class RefreshService
             $done++;
 
             try {
-                $this->fetch->fetchNow($driver, $span);
+                $this->fetch->fetchNow($driver, $span, $full);
                 $stats['refreshed']++;
             } catch (Throwable $e) {
                 $stats['failed']++;

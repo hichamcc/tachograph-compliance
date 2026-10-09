@@ -7,10 +7,12 @@ use App\Models\Driver;
 use App\Models\ProcessingRun;
 use App\Models\RawPayload;
 use App\Models\User;
+use App\Models\ValidationIssue;
 use App\RunStatus;
 use App\RunType;
 use App\Services\Tachograph\EvaluationService;
 use App\Services\Tachograph\FetchService;
+use App\Tachograph\Data\Period;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
@@ -177,5 +179,70 @@ class FetchTest extends TestCase
 
         RawPayload::pruneDaily(); // already pruned today
         $this->assertModelExists($older);
+    }
+
+    public function test_re_download_replaces_stale_records_and_their_data_problems(): void
+    {
+        $t = fn (string $time) => strtotime("2025-10-09 {$time} UTC");
+        $day = fn (array $activities) => [['day' => '2025-10-08T22:00:00Z', 'activities' => $activities]];
+        $record = fn (string $status, string $source, string $from, string $to) => ['start' => $t($from), 'end' => $t($to), 'status' => $status, 'source' => $source, 'unitId' => 1];
+
+        // Earlier record outside the re-downloaded span must survive.
+        $older = [['day' => '2025-10-07T22:00:00Z', 'activities' => [
+            ['start' => strtotime('2025-10-08 06:00 UTC'), 'end' => strtotime('2025-10-08 08:00 UTC'), 'status' => 'DRIVING', 'source' => 'ddd', 'unitId' => 1],
+        ]]];
+
+        // First download: driving until 16:29, then Mapon's gap filler.
+        $first = $day([
+            $record('DRIVING', 'ddd', '06:00', '16:03'),
+            $record('WORK', 'can', '16:03', '16:29'),
+            $record('REST', 'unkn', '16:29', '21:59'),
+        ]);
+        // Two hours later the card was downloaded: the CAN record is re-cut, the filler shrank.
+        $second = $day([
+            $record('DRIVING', 'ddd', '06:00', '16:03'),
+            $record('WORK', 'ddd', '16:03', '16:50'),
+            $record('REST', 'unkn', '16:50', '21:59'),
+        ]);
+
+        Http::fakeSequence('mapon.test/*')->push($older)->push($first)->push($second);
+        $fetch = app(FetchService::class);
+        $span = fn (string $from, string $to) => new Period(new \DateTimeImmutable($from), new \DateTimeImmutable($to));
+
+        config(['tachograph.history_days' => 0]);
+        $fetch->fetchNow($this->driver, $span('2025-10-08T00:00:00Z', '2025-10-08T23:00:00Z'), full: true);
+        $fetch->fetchNow($this->driver, $span('2025-10-09T00:00:00Z', '2025-10-09T23:00:00Z'), full: true);
+        $this->assertSame(4, ActivityRecord::where('driver_id', $this->driver->id)->count());
+        $this->assertSame(0, ValidationIssue::whereNull('driver_id')->count(), 'issues belong to the driver, not stored twice');
+        $this->assertSame(1, ValidationIssue::where('type', 'UNKNOWN_SOURCE_FILL')->count());
+
+        $fetch->fetchNow($this->driver, $span('2025-10-09T00:00:00Z', '2025-10-09T23:00:00Z'), full: true);
+
+        $rows = ActivityRecord::where('driver_id', $this->driver->id)->orderBy('start_at')->get();
+        $this->assertSame(
+            ['2025-10-08 06:00 DRIVING ddd', '2025-10-09 06:00 DRIVING ddd', '2025-10-09 16:03 WORK ddd', '2025-10-09 16:50 UNKNOWN unkn'],
+            $rows->map(fn ($r) => $r->start_at->format('Y-m-d H:i').' '.$r->type.' '.$r->source)->all(),
+        );
+
+        // Only the current filler is reported, and the old CAN/ddd overlap is gone.
+        $fillers = ValidationIssue::where('type', 'UNKNOWN_SOURCE_FILL')->get();
+        $this->assertCount(1, $fillers);
+        $this->assertSame('16:50', $fillers[0]->period_start->format('H:i'));
+        $this->assertSame(0, ValidationIssue::where('type', 'OVERLAPPING_ACTIVITY')->count());
+    }
+
+    public function test_file_import_does_not_remove_existing_records(): void
+    {
+        $this->artisan('tacho:import-file', ['path' => 'tests/Fixtures/activities/week_happy_path.json'])->assertSuccessful();
+        $count = ActivityRecord::count();
+
+        $partial = tempnam(sys_get_temp_dir(), 'tacho');
+        file_put_contents($partial, json_encode(['driver_id' => 'test_driver_01', 'activities' => [
+            ['activity_type' => 'WORK', 'start_time' => '2026-09-28T06:00:00Z', 'end_time' => '2026-09-28T06:10:00Z'],
+        ]]));
+        $this->artisan('tacho:import-file', ['path' => $partial])->assertSuccessful();
+        unlink($partial);
+
+        $this->assertSame($count + 1, ActivityRecord::count());
     }
 }

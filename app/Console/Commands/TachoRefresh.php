@@ -16,7 +16,8 @@ class TachoRefresh extends Command
     protected $signature = 'tacho:refresh
         {--driver=* : Only these Mapon driver IDs}
         {--no-sync : Do not sync the driver list first}
-        {--all : Refresh every driver, not only those due}';
+        {--all : Refresh every driver, not only those due}
+        {--full : Re-download the whole window (4+ weeks), not only the last days}';
 
     protected $description = 'Download the latest Mapon data for due drivers and re-check the current week (for cron)';
 
@@ -25,6 +26,7 @@ class TachoRefresh extends Command
         $stats = $refresh->run(
             only: array_values(array_filter((array) $this->option('driver'))),
             all: (bool) $this->option('all'),
+            full: (bool) $this->option('full'),
             sync: $this->option('no-sync') ? false : true,
             onDriver: function (Driver $driver, ?string $error) {
                 $error

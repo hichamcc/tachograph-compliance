@@ -66,7 +66,8 @@ final class NormalizationResult
     /** @return list<string> */
     public function driverIds(): array
     {
-        return array_keys($this->activities + $this->events);
+        // PHP turns numeric string keys ("424242") into ints; driver IDs are strings.
+        return array_map('strval', array_keys($this->activities + $this->events));
     }
 
     /** @return list<Activity> sorted by start */

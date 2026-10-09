@@ -78,7 +78,7 @@ class FetchDriverActivitiesChunk implements ShouldQueue
         ]);
 
         $result = $normalizer->normalize($driver->external_id, [new RawChunk($payload, $raw->id)]);
-        $store->persist($result, $run, origin: 'mapon');
+        $store->persist($result, $run, origin: 'mapon', replace: true);
         $driver->update(['last_fetched_at' => now()]);
 
         Log::channel('tachograph')->info('Fetch chunk stored', [
