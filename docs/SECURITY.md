@@ -42,6 +42,7 @@ No code change is needed.
 - The JSON upload form is disabled unless `TACHO_ALLOW_IMPORT=true`. Keep it `false` in production.
 - Exports include formula-injection protection for spreadsheet cells.
 - Sync and run creation are rate limited (5 and 10 per minute per user).
+- The cron URL (`/cron/refresh/<token>`) is disabled unless `TACHO_CRON_TOKEN` (>= 32 chars) is set; wrong tokens get a 404, it is rate limited (20/min) and returns only counts. Keep the token secret; rotate it by changing `.env` and the panel task.
 
 ## Hosting
 

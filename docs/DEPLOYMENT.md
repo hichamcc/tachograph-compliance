@@ -99,6 +99,27 @@ Every run it:
 
 Drivers without driving/work in the last 5 weeks (`TACHO_ACTIVE_WEEKS`) are refreshed only once a day and are hidden from the driver list by default. The command runs in the cron process (no queue, no request time limit) and skips itself if the previous run is still going. Run it once by hand after deploying to load the initial 4 weeks: `php artisan tacho:refresh`.
 
+### Automatic refresh with a "Call URL" cron (hosts without command cron)
+
+If the panel can only call a URL:
+
+1. Create a secret token and put it in `.env` (at least 32 characters):
+   ```bash
+   php -r "echo bin2hex(random_bytes(24)), PHP_EOL;"
+   ```
+   ```env
+   TACHO_CRON_TOKEN=<the printed value>
+   ```
+   then `php artisan config:cache`.
+2. In the panel add a scheduled task → **Call up URL**, **every 5 minutes**:
+   ```
+   https://tachograph.wttsystem.dk/cron/refresh/<the same token>
+   ```
+
+Each call works for at most `TACHO_CRON_SECONDS` (25 s) on the drivers that are *due* (never downloaded; active and not refreshed for 2 h; inactive and not refreshed for 24 h), then stops; the next call continues. The first full load takes about an hour of calls, after that active drivers are refreshed about every 2 hours and most calls finish instantly. The response is only counts, e.g. `{"status":"ok","refreshed":12,"checked":12,"failed":0,"remaining":40,...}`.
+
+Security: without `TACHO_CRON_TOKEN` (or with a wrong token) the URL returns 404; it is rate-limited and never returns driver data. Treat the token like a password — to change it, set a new value in `.env`, run `php artisan config:cache`, and update the panel.
+
 ### Without cron (`QUEUE_CONNECTION=sync`)
 
 This is a supported mode: there is no queue and no cron, and everything runs during the request when someone clicks **Run check** or **Sync from Mapon**.

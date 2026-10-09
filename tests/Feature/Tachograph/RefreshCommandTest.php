@@ -7,6 +7,7 @@ use App\Models\ProcessingRun;
 use App\Models\User;
 use App\RunStatus;
 use App\RunType;
+use App\Services\Tachograph\RefreshService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Cache;
@@ -142,5 +143,68 @@ class RefreshCommandTest extends TestCase
         $this->assertNull(Driver::where('external_id', '1')->sole()->last_fetched_at);
         $this->assertNotNull(Driver::where('external_id', '2')->sole()->last_fetched_at);
         $this->assertSame(RunStatus::FAILED, ProcessingRun::where('type', RunType::FETCH)->where('driver_id', Driver::where('external_id', '1')->value('id'))->sole()->status);
+    }
+
+    private const TOKEN = 'test-cron-token-0123456789abcdef0123456789';
+
+    public function test_cron_url_is_disabled_without_a_token_and_hides_wrong_tokens(): void
+    {
+        $this->fakeMapon();
+
+        config(['tachograph.cron_token' => '']);
+        $this->get('/cron/refresh/anything')->assertNotFound();
+
+        config(['tachograph.cron_token' => self::TOKEN]);
+        $this->get('/cron/refresh/wrong-token-0123456789abcdef0123456789')->assertNotFound();
+        $this->get('/cron/refresh/'.substr(self::TOKEN, 0, -1))->assertNotFound();
+
+        Http::assertNothingSent();
+    }
+
+    public function test_cron_url_refreshes_due_drivers_and_returns_counts_only(): void
+    {
+        $this->fakeMapon();
+        config(['tachograph.cron_token' => self::TOKEN]);
+
+        $response = $this->get('/cron/refresh/'.self::TOKEN)->assertOk();
+
+        $response->assertJson(['status' => 'ok', 'refreshed' => 2, 'remaining' => 0, 'synced' => true]);
+        $this->assertSame(['status', 'refreshed', 'checked', 'failed', 'remaining', 'seconds', 'synced'], array_keys($response->json()));
+        $this->assertSame(2, ProcessingRun::where('type', RunType::EVALUATE)->count());
+
+        // Nothing due right after: the next call does no Mapon requests.
+        $before = Http::recorded()->count();
+        $this->get('/cron/refresh/'.self::TOKEN)->assertJson(['refreshed' => 0, 'remaining' => 0]);
+        $this->assertSame($before, Http::recorded()->count());
+    }
+
+    public function test_time_budget_spreads_work_over_several_calls(): void
+    {
+        $this->fakeMapon();
+        $service = app(RefreshService::class);
+
+        $first = $service->run(budgetSeconds: 0); // budget already used up: only the sync happens
+        $this->assertSame(0, $first['refreshed']);
+        $this->assertSame(2, $first['remaining']);
+
+        $second = $service->run(budgetSeconds: 60);
+        $this->assertSame(2, $second['refreshed']);
+        $this->assertSame(0, $second['remaining']);
+
+        // Two hours later the active driver is due again, the idle one is not.
+        $this->travel(2)->hours();
+        $this->assertSame(['424242'], $service->dueDrivers()->pluck('external_id')->all());
+    }
+
+    public function test_cron_url_reports_busy_while_another_refresh_runs(): void
+    {
+        $this->fakeMapon();
+        config(['tachograph.cron_token' => self::TOKEN]);
+        $lock = Cache::lock('tachograph.refresh', 60);
+        $lock->get();
+
+        $this->get('/cron/refresh/'.self::TOKEN)->assertOk()->assertJson(['status' => 'busy']);
+
+        $lock->release();
     }
 }

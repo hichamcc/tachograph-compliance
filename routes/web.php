@@ -15,6 +15,11 @@ Route::view('/', 'home')->name('home');
 
 Route::get('avatars/{user}', [UserAvatarController::class, 'show'])->name('avatars.show');
 
+// "Call URL" cron (hosts without command cron). Disabled unless TACHO_CRON_TOKEN is set.
+Route::get('cron/refresh/{token}', [Tachograph\CronController::class, 'refresh'])
+    ->middleware('throttle:20,1')
+    ->name('tachograph.cron.refresh');
+
 Route::get('invitations/{invitation:code}', [InvitationController::class, 'show'])->name('teams.invitations.show');
 
 Route::middleware(['auth'])->prefix('app')->group(function () {

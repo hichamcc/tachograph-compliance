@@ -14,6 +14,11 @@ return [
     // every run of tacho:refresh. Others are hidden behind a toggle and refreshed once a day.
     'active_weeks' => (int) env('TACHO_ACTIVE_WEEKS', 5),
     'refresh_inactive_hours' => 24,
+    'refresh_interval_minutes' => 120, // active drivers are refreshed about this often
+
+    // "Call URL" cron: secret token (>= 32 chars; empty = disabled) and seconds of work per call.
+    'cron_token' => env('TACHO_CRON_TOKEN', ''),
+    'cron_seconds' => (int) env('TACHO_CRON_SECONDS', 25),
 
     // How far back to fetch before the report start (history for 2-week & compensation rules).
     'history_days' => 28,
